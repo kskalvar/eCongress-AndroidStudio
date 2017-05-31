@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+
+    <include layout="@layout/settings_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/editText3"
+        android:layout_toEndOf="@+id/editText3"
+        android:hint="@string/mi"
+        android:inputType="textCapWords"
+        android:lines="1"
+        android:width="45sp"
+        android:background="@drawable/text_box">
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText6"
+        android:layout_alignTop="@+id/editText5"
+        android:layout_toEndOf="@+id/editText5"
+        android:hint="@string/lastname"
+        android:inputType="textCapWords|textPersonName"
+        android:lines="1"
+        android:width="115sp"
+        android:background="@drawable/text_box" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText6"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/city"
+        android:inputType="textCapWords"
+        android:lines="1"
+        android:width="280sp"
+        android:background="@drawable/text_box" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText9"
+        android:layout_below="@+id/editText5"
+        android:hint="@string/address"
+        android:inputType="textCapWords|textPostalAddress"
+        android:lines="1"
+        android:width="280sp"
+        android:background="@drawable/text_box"/>
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText9"
+        android:layout_toStartOf="@+id/editText4"
+        android:ems="10"
+        android:hint="@string/zip"
+        android:inputType="number"
+        android:lines="1"
+        android:textColorHint="@color/Red"
+        android:width="95sp"
+        android:background="@drawable/text_box"/>
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText7"
+        android:layout_alignBottom="@+id/editText7"
+        android:layout_toEndOf="@+id/editText7"
+        android:ems="10"
+        android:hint="@string/zip4"
+        android:inputType="number"
+        android:lines="1"
+        android:width="75sp"
+        android:background="@drawable/text_box"/>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText11"
+        android:layout_below="@+id/editText11"
+        android:ems="10"
+        android:hint="@string/telephone"
+        android:inputType="phone"
+        android:lines="1"
+        android:width="180sp"
+        android:background="@drawable/text_box" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:text="@string/testemail" />
+
+    <EditText
+        android:id="@+id/editText11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/state"
+        android:inputType="textCapCharacters"
+        android:lines="1"
+        android:width="65sp"
+        android:layout_below="@+id/editText9"
+        android:layout_toStartOf="@+id/editText7"
+        android:background="@drawable/text_box"/>
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/firstname"
+        android:inputType="textCapWords|textPersonName"
+        android:lines="1"
+        android:width="115sp"
+        android:layout_below="@+id/editText10"
+        android:layout_alignStart="@+id/editText6"
+        android:background="@drawable/text_box" />
+
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/title"
+        android:inputType="textCapWords"
+        android:lines="1"
+        android:width="130sp"
+        android:background="@drawable/text_box"
+        android:layout_marginTop="111dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editText6" />
+
+</RelativeLayout>

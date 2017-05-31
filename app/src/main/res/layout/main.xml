@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:paddingTop="64dp"
+    android:paddingBottom="0dp"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+
+    tools:context="com.mycompany.app.econgress.MainActivity"
+    tools:showIn="@layout/main_app_bar">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="197dp">
+    <ScrollView
+        android:layout_height="181dp"
+        android:layout_width="match_parent"
+        android:fadeScrollbars="false">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:stretchColumns="1">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <CheckBox
+                    android:id="@+id/checkBox1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+                <Button
+                    android:id="@+id/nameButton1_1"
+                    android:clickable="false"
+                    android:hint="@string/representative" />
+                <ImageButton
+                    android:id="@+id/webButton1_1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="55dp"
+                    android:maxWidth="55dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/phoneButton1_1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="55dp"
+                    android:maxWidth="55dp"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+            <TableRow>
+                <CheckBox
+                    android:id="@+id/checkBox1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+                <Button
+                    android:id="@+id/nameButton1_2"
+                    android:clickable="false"
+                    android:hint="@string/representative" />
+                <ImageButton
+                    android:id="@+id/webButton1_2"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/phoneButton1_2"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" >
+                <CheckBox
+                    android:id="@+id/checkBox1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+                <Button
+                    android:id="@+id/nameButton1_3"
+                    android:clickable="false"
+                    android:hint="@string/representative" />
+                <ImageButton
+                    android:id="@+id/webButton1_3"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/phoneButton1_3"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <CheckBox
+                    android:id="@+id/checkBox1_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+                <Button
+                    android:id="@+id/nameButton1_4"
+                    android:clickable="false"
+                    android:hint="@string/representative" />
+                <ImageButton
+                    android:id="@+id/webButton1_4"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/phoneButton1_4"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <CheckBox
+                    android:id="@+id/checkBox1_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+                <Button
+                    android:id="@+id/nameButton1_5"
+                    android:clickable="false"
+                    android:hint="@string/representative" />
+                <ImageButton
+                    android:id="@+id/webButton1_5"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_info"
+                    tools:ignore="ContentDescription" />
+                <ImageButton
+                    android:id="@+id/phoneButton1_5"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="48dp"
+                    android:maxWidth="48dp"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <EditText
+        android:id="@+id/subjectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/subject"
+        android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+        android:background="@drawable/text_box"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/messageText"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top|start"
+        android:hint="@string/message"
+        android:inputType="textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine"
+        android:background="@drawable/text_box"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+    </EditText>
+</TableLayout>
