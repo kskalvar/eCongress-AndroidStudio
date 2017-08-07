@@ -673,7 +673,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		if (googleAccount == null) {
 			email.setText(R.string.permissions_not_set);
 		} else {
-			email.setText(googleAccount);
+			email.setText(getString(R.string.account) + " " + googleAccount);
 		}
 
         TextView textViewVersion = (TextView) header.findViewById(R.id.textViewVersion);

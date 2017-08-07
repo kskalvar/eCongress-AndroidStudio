@@ -61,4 +61,5 @@
     <string name="oauth_network_error">Warning: Oauth Network Error</string>
     <string name="oauth_parse_error">Warning: Oauth Token Parse Error</string>
     <string name="oauth_token_not_acquired">Warning: Access Not Yet Acquired</string>
+    <string name="account">Account:</string>
 </resources>
