@@ -60,4 +60,5 @@
     <string name="oauth_url">https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=</string>
     <string name="oauth_network_error">Warning: Oauth Network Error</string>
     <string name="oauth_parse_error">Warning: Oauth Token Parse Error</string>
+    <string name="oauth_token_not_acquired">Warning: Access Not Yet Acquired</string>
 </resources>

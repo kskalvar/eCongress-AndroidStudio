@@ -694,7 +694,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			Toast.makeText(getApplicationContext(), R.string.no_email_account, Toast.LENGTH_SHORT).show();
 			return;
 		} else if (!oauthOnTokenAcquired) {
-			Toast.makeText(getApplicationContext(), "Warning: Oauth Token Not Acquired!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.oauth_token_not_acquired, Toast.LENGTH_SHORT).show();
 			return;
 		} else if (!oauthJsonValidToken) {
 			Toast.makeText(getApplicationContext(), R.string.no_token, Toast.LENGTH_SHORT).show();
