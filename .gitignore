@@ -5,6 +5,7 @@
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/libraries
+/.idea/markdown-navigator
 .DS_Store
 /build
 /app/build
