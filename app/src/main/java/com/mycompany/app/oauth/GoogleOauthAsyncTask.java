@@ -34,22 +34,12 @@ public class GoogleOauthAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 
-		econgressActivity.noGoogleAccount = false;
-		econgressActivity.googleAcountNoPermissions = false;
-
-		if (econgressActivity.checkCallingOrSelfPermission(Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-			econgressActivity.googleAcountNoPermissions = true;
-			return null;
-		}
-
 		mAccountManager = AccountManager.get(econgressActivity);
 		mAccounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
 
 		if (mAccounts.length == 0) {
-			econgressActivity.noGoogleAccount = true;
 			return null;
 		}
-        econgressActivity.googleAccount = mAccounts[0].name;
 
 		getToken();
 
@@ -73,7 +63,7 @@ public class GoogleOauthAsyncTask extends AsyncTask<Void, Void, Void> {
         jsonParseError = jParser.hasParseError();
         jsonValidToken = jParser.hasValidToken();
 
-		return null;
+        return null;
 	}
 
 	private void getToken() {
@@ -106,7 +96,6 @@ public class GoogleOauthAsyncTask extends AsyncTask<Void, Void, Void> {
 	protected void onPostExecute(Void result) {
 
 		super.onPostExecute(result);
-		econgressActivity.setNavigationViewAccount();
         econgressActivity.oauthOnTokenAcquired = this.onTokenAcquired;
         econgressActivity.oauthJsonValidToken = this.jsonValidToken;
 		econgressActivity.oauthJsonNetworkError = this.jsonNetworkError;

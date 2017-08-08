@@ -1,10 +1,8 @@
 package com.mycompany.app.econgress;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,8 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,12 +32,11 @@ import android.widget.Toast;
 import com.mycompany.app.oauth.GoogleOauthAsyncTask;
 import com.mycompany.app.persistence.SQLite.AddressDAO;
 import com.mycompany.app.persistence.SQLite.SQLAddress;
+import com.mycompany.app.security.AndroidPermissionsAsyncTask;
 import com.mycompany.app.smtp.MailAsyncTask;
 import com.mycompany.app.sunlight.LegislatorObject;
 import com.mycompany.app.sunlight.SunlightJSONAsyncTask;
 import com.mycompany.app.version.VersionAsyncTask;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -165,11 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		super.onStart();
 
 		setActionBarTitle();
-
-		if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-			ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.GET_ACCOUNTS}, 0);
-		}
-
 		Intent intent = getIntent();
 		String action = intent.getAction();
 		String type = intent.getType();
@@ -203,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				new VersionAsyncTask(MainActivity.this).execute();
 			}
 			getRepresentatives();
+
 		} else {
 			getRepresentatives();
 			Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
@@ -212,11 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	protected void onResume() {
         super.onResume();
-
-		if (this.isOnline()) {
-			new GoogleOauthAsyncTask(MainActivity.this).execute();
-		}
-	}
+    }
 
 	@Override
 	protected void onPause() {
@@ -263,8 +250,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -332,6 +317,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 			new SunlightJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
 		}
+
+        if (this.isOnline()) {
+            new AndroidPermissionsAsyncTask(MainActivity.this).execute();
+            new GoogleOauthAsyncTask(MainActivity.this).execute();
+        }
 	}
 
 	public void setRepresentatives() {
@@ -615,6 +605,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 					}
 				});
 			}
+
 		} else {
 
 			/* If Zip Code is incorrect open the SettingsActivity Form */
@@ -687,6 +678,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			return;
 		}
 
+        new GoogleOauthAsyncTask(MainActivity.this).execute();
+
  		if (googleAcountNoPermissions) {
 			Toast.makeText(getApplicationContext(), R.string.permissions_not_set, Toast.LENGTH_SHORT).show();
 			return;
@@ -748,7 +741,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			}
 		}
 
-		// Build address list or override for testing purposes.
+        // Build address list or override for testing purposes.
 		// Overriding will send message to your own email address
 
 		String emailAddress = emailAddresses.toString().replace("[", "") // remove the right bracket
