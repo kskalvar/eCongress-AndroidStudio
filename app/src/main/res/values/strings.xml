@@ -23,10 +23,10 @@
     <string name="presidentemail">president@whitehouse.gov</string>
     <string name="presidentwebsite">https://www.whitehouse.gov</string>
     <string name="presidentphone">202\-456\-1111</string>
-    <string name="presidentsymbol">US President</string>
+    <string name="presidentsymbol">POTUS</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
-    <string name="permissions_not_set">Warning: Application Permissions Not Set</string>
+    <string name="permissions_not_set">Account: Permissions Not Set</string>
     <string name="test_mode">eCongress Test Mode</string>
     <string name="normal_mode">eCongress</string>
     <string name="no_email_account">Warning: No Email Account!</string>
@@ -38,7 +38,7 @@
     <string name="no_subject_or_message">Subject Or Message Not Entered!</string>
     <string name="no_network">Warning: No Network Service!</string>
     <string name="no_legislative_service">Warning: Legislative Service Not Accessible!</string>
-    <string name="invalid_zip">Warning: Invalid Zip Code, Returned No Congressional Members!</string>
+    <string name="invalid_zip">Warning: Valid Zip Code Not Entered, Returned No Congressional Members!</string>
     <string name="no_phone">"Phone Not Available: "</string>
     <string name="no_website">"Website Not Available: "</string>
     <string name="telphone_parse">tel:</string>
@@ -60,6 +60,6 @@
     <string name="oauth_url">https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=</string>
     <string name="oauth_network_error">Warning: Oauth Network Error</string>
     <string name="oauth_parse_error">Warning: Oauth Token Parse Error</string>
-    <string name="oauth_token_not_acquired">Warning: Access Not Yet Acquired</string>
+    <string name="oauth_token_not_acquired">Warning: Oauth Access Not Yet Acquired</string>
     <string name="account">Account:</string>
 </resources>
