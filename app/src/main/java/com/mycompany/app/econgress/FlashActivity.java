@@ -10,9 +10,9 @@ import android.util.Log;
 public class FlashActivity extends Activity {
 	
     private int mProgressStatus = 0;
-    private String url = "http://congress.api.sunlightfoundation.com";
-    private String command = "/legislators/locate?zip=";
-    private String key = "&apikey=37379f77f94a43d9934bd4524f768f5b";
+    private String url = "https://www.googleapis.com";
+    private String command = "/civicinfo/v2/representatives?includeOffices=true&levels=country&address=";
+    private String key = "&key=AIzaSyDZnyOg_OE5FNBCZiYGPjLlEdL7-iUzFZs";
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {

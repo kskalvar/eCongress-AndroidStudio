@@ -1,0 +1,263 @@
+{
+  "kind": "civicinfo#representativeInfoResponse",
+  "normalizedInput": {
+    "line1": "",
+    "city": "Ashburn",
+    "state": "VA",
+    "zip": "20148"
+  },
+  "divisions": {
+    "ocd-division/country:us": {
+      "name": "United States",
+      "officeIndices": [
+        0,
+        1
+      ]
+    },
+    "ocd-division/country:us/state:va": {
+      "name": "Virginia",
+      "officeIndices": [
+        2
+      ]
+    },
+    "ocd-division/country:us/state:va/cd:10": {
+      "name": "Virginia's 10th congressional district",
+      "officeIndices": [
+        3
+      ]
+    }
+  },
+  "offices": [
+    {
+      "name": "President of the United States",
+      "divisionId": "ocd-division/country:us",
+      "levels": [
+        "country"
+      ],
+      "roles": [
+        "headOfState",
+        "headOfGovernment"
+      ],
+      "officialIndices": [
+        0
+      ]
+    },
+    {
+      "name": "Vice-President of the United States",
+      "divisionId": "ocd-division/country:us",
+      "levels": [
+        "country"
+      ],
+      "roles": [
+        "deputyHeadOfGovernment"
+      ],
+      "officialIndices": [
+        1
+      ]
+    },
+    {
+      "name": "United States Senate",
+      "divisionId": "ocd-division/country:us/state:va",
+      "levels": [
+        "country"
+      ],
+      "roles": [
+        "legislatorUpperBody"
+      ],
+      "officialIndices": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "United States House of Representatives VA-10",
+      "divisionId": "ocd-division/country:us/state:va/cd:10",
+      "levels": [
+        "country"
+      ],
+      "roles": [
+        "legislatorLowerBody"
+      ],
+      "officialIndices": [
+        4
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "name": "Donald J. Trump",
+      "address": [
+        {
+          "line1": "The White House",
+          "line2": "1600 Pennsylvania Avenue NW",
+          "city": "Washington",
+          "state": "DC",
+          "zip": "20500"
+        }
+      ],
+      "party": "Republican",
+      "phones": [
+        "(202) 456-1111"
+      ],
+      "urls": [
+        "http://www.whitehouse.gov/"
+      ],
+      "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/PE%20Color.jpg",
+      "channels": [
+        {
+          "type": "GooglePlus",
+          "id": "+whitehouse"
+        },
+        {
+          "type": "Facebook",
+          "id": "whitehouse"
+        },
+        {
+          "type": "Twitter",
+          "id": "potus"
+        },
+        {
+          "type": "YouTube",
+          "id": "whitehouse"
+        }
+      ]
+    },
+    {
+      "name": "Mike Pence",
+      "address": [
+        {
+          "line1": "The White House",
+          "line2": "1600 Pennsylvania Avenue NW",
+          "city": "Washington",
+          "state": "DC",
+          "zip": "20500"
+        }
+      ],
+      "party": "Republican",
+      "phones": [
+        "(202) 456-1111"
+      ],
+      "urls": [
+        "http://www.whitehouse.gov/"
+      ],
+      "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/VPE%20Color.jpg",
+      "channels": [
+        {
+          "type": "GooglePlus",
+          "id": "+whitehouse"
+        },
+        {
+          "type": "Facebook",
+          "id": "whitehouse"
+        },
+        {
+          "type": "Twitter",
+          "id": "VP"
+        }
+      ]
+    },
+    {
+      "name": "Mark R. Warner",
+      "address": [
+        {
+          "line1": "703 Hart Senate Office Building",
+          "city": "Washington",
+          "state": "DC",
+          "zip": "20510"
+        }
+      ],
+      "party": "Democratic",
+      "phones": [
+        "(202) 224-2023"
+      ],
+      "urls": [
+        "http://warner.senate.gov/"
+      ],
+      "photoUrl": "http://bioguide.congress.gov/bioguide/photo/W/W000805.jpg",
+      "channels": [
+        {
+          "type": "Facebook",
+          "id": "MarkRWarner"
+        },
+        {
+          "type": "Twitter",
+          "id": "MarkWarner"
+        },
+        {
+          "type": "YouTube",
+          "id": "SenatorMarkWarner"
+        },
+        {
+          "type": "YouTube",
+          "id": "MarkWarner"
+        }
+      ]
+    },
+    {
+      "name": "Tim Kaine",
+      "address": [
+        {
+          "line1": "231 Russell Senate Office Building",
+          "city": "Washington",
+          "state": "DC",
+          "zip": "20510"
+        }
+      ],
+      "party": "Democratic",
+      "phones": [
+        "(202) 224-4024"
+      ],
+      "urls": [
+        "http://kaine.senate.gov/"
+      ],
+      "photoUrl": "http://bioguide.congress.gov/bioguide/photo/K/K000384.jpg",
+      "channels": [
+        {
+          "type": "Facebook",
+          "id": "SenatorKaine"
+        },
+        {
+          "type": "Twitter",
+          "id": "SenKaineOffice"
+        },
+        {
+          "type": "YouTube",
+          "id": "SenatorTimKaine"
+        }
+      ]
+    },
+    {
+      "name": "Barbara Comstock",
+      "address": [
+        {
+          "line1": "229 Cannon House Office Building",
+          "city": "Washington",
+          "state": "DC",
+          "zip": "20515"
+        }
+      ],
+      "party": "Republican",
+      "phones": [
+        "(202) 225-5136"
+      ],
+      "urls": [
+        "https://comstock.house.gov/"
+      ],
+      "photoUrl": "https://comstock.house.gov/sites/comstock.house.gov/files/2015-02-18_ec_0019.jpg",
+      "channels": [
+        {
+          "type": "Facebook",
+          "id": "RepBarbaraComstock"
+        },
+        {
+          "type": "Twitter",
+          "id": "RepComstock"
+        },
+        {
+          "type": "YouTube",
+          "id": "UC2IBUvBd51zgaE56fPcZeVA"
+        }
+      ]
+    }
+  ]
+}
