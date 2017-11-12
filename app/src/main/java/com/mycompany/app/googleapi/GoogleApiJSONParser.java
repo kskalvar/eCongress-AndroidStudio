@@ -16,7 +16,7 @@ import java.util.HashMap;
 class GoogleApiJSONParser {
 
 	private HashMap<String, String> legislator = null;
-	private HashMap<Integer, HashMap<String, String>> legislators = new HashMap<Integer, HashMap<String, String>>();
+	private HashMap<Integer, HashMap<String, String>> legislators = new HashMap<>();
 	private boolean networkError = false;
 	private boolean parseError = false;
 	private String jsonObject = "no json";
@@ -44,7 +44,7 @@ class GoogleApiJSONParser {
 
         networkError = false;
         parseError = false;
-        String line = null;
+        String line;
 
 		try {
 			URL obj = new URL(url);
@@ -75,7 +75,7 @@ class GoogleApiJSONParser {
 		}
 	}
 
-	void buildLegislatorHashmap(JSONObject object) {
+	private void buildLegislatorHashmap(JSONObject object) {
 
 	    parseError = false;
 
@@ -87,7 +87,7 @@ class GoogleApiJSONParser {
             int legislatorCount = 0;
             for (int i = 0; i < officesLength; i++) {
 
-                String s = null;
+                String s;
 
                 JSONObject office = offices.getJSONObject(i);
                 JSONArray officesOfficialIndices = office.getJSONArray("officialIndices");
@@ -121,7 +121,7 @@ class GoogleApiJSONParser {
                     legislator.put("website", s);
 
                     s = member.getString("party");
-                    if ( s.toString().equals("Democratic")) {
+                    if ( s.equals("Democratic")) {
                         s = "(D)";
                     } else {
                         s = "(R)";
@@ -129,6 +129,7 @@ class GoogleApiJSONParser {
                     legislator.put("party", s);
 
                     legislator.put("oc_email", "null");
+                    legislator.put("sendMail", "false");
 
                     JSONArray phones = member.getJSONArray("phones");
                     s = phones.getString(0);

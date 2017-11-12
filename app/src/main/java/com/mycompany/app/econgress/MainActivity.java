@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,35 +41,14 @@ import com.mycompany.app.version.VersionAsyncTask;
 
 import java.util.ArrayList;
 
+import static android.R.drawable.ic_dialog_dialer;
+import static android.R.drawable.ic_dialog_info;
+
 /**
  * @author Kirk S. Kalvar
  * 
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-	private CheckBox checkBox1_1;
-	private CheckBox checkBox1_2;
-	private CheckBox checkBox1_3;
-	private CheckBox checkBox1_4;
-	private CheckBox checkBox1_5;
-
-	private Button nameButton1_1;
-	private Button nameButton1_2;
-	private Button nameButton1_3;
-	private Button nameButton1_4;
-	private Button nameButton1_5;
-
-	private ImageButton webButton1_1;
-	private ImageButton webButton1_2;
-	private ImageButton webButton1_3;
-	private ImageButton webButton1_4;
-	private ImageButton webButton1_5;
-
-	private ImageButton phoneButton1_1;
-	private ImageButton phoneButton1_2;
-	private ImageButton phoneButton1_3;
-	private ImageButton phoneButton1_4;
-	private ImageButton phoneButton1_5;
 
 	private EditText subjectText;
 	private EditText messageText;
@@ -125,31 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		checkBox1_1 = (CheckBox) findViewById(R.id.checkBox1_1);
-		checkBox1_2 = (CheckBox) findViewById(R.id.checkBox1_2);
-		checkBox1_3 = (CheckBox) findViewById(R.id.checkBox1_3);
-		checkBox1_4 = (CheckBox) findViewById(R.id.checkBox1_4);
-		checkBox1_5 = (CheckBox) findViewById(R.id.checkBox1_5);
-
-		nameButton1_1 = (Button) findViewById(R.id.nameButton1_1);
-		nameButton1_2 = (Button) findViewById(R.id.nameButton1_2);
-		nameButton1_3 = (Button) findViewById(R.id.nameButton1_3);
-		nameButton1_4 = (Button) findViewById(R.id.nameButton1_4);
-		nameButton1_5 = (Button) findViewById(R.id.nameButton1_5);
-
-		webButton1_1 = (ImageButton) findViewById(R.id.webButton1_1);
-		webButton1_2 = (ImageButton) findViewById(R.id.webButton1_2);
-		webButton1_3 = (ImageButton) findViewById(R.id.webButton1_3);
-		webButton1_4 = (ImageButton) findViewById(R.id.webButton1_4);
-		webButton1_5 = (ImageButton) findViewById(R.id.webButton1_5);
-
-		phoneButton1_1 = (ImageButton) findViewById(R.id.phoneButton1_1);
-		phoneButton1_2 = (ImageButton) findViewById(R.id.phoneButton1_2);
-		phoneButton1_3 = (ImageButton) findViewById(R.id.phoneButton1_3);
-		phoneButton1_4 = (ImageButton) findViewById(R.id.phoneButton1_4);
-		phoneButton1_5 = (ImageButton) findViewById(R.id.phoneButton1_5);
-
-		subjectText = (EditText) findViewById(R.id.subjectText);
+        subjectText = (EditText) findViewById(R.id.subjectText);
 		messageText = (EditText) findViewById(R.id.messageText);
 	}
 
@@ -250,17 +208,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	@Override
-	public boolean onNavigationItemSelected(MenuItem item) {
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 		if (id == R.id.nav_clear) {
 
-			checkBox1_1.setChecked(false);
-			checkBox1_2.setChecked(false);
-			checkBox1_3.setChecked(false);
-			checkBox1_4.setChecked(false);
-			checkBox1_5.setChecked(false);
+			setRepresentatives();
 
 			subjectText.setText("");
 			messageText.setText(this.getSignature());
@@ -313,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			String command = sharedPref.getString(getString(R.string.command), null);
 			String key = sharedPref.getString(getString(R.string.key), null);
 
-			// new SunlightJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
 			new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
 		}
 
@@ -324,8 +277,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	public void setRepresentatives() {
-
-		setRepresentativeButtonDefaults();
 
 		if (legislativeParseError) {
 			Toast.makeText(getApplicationContext(), R.string.legislative_parse_error, Toast.LENGTH_LONG).show();
@@ -339,43 +290,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (oauthJsonParseError) {
             Toast.makeText(getApplicationContext(), R.string.oauth_parse_error, Toast.LENGTH_LONG).show();
+            return;
         }
 
         if (oauthJsonNetworkError) {
             Toast.makeText(getApplicationContext(), R.string.oauth_network_error, Toast.LENGTH_LONG).show();
+            return;
         }
 
 		AddressDAO myAddressDAO = AddressDAO.getInstance(getApplicationContext());
 		SQLAddress mySQLAddress = myAddressDAO.getAddress();
 
-        LegislatorObject s = getLegislatorObject();
+        TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+        tl.removeAllViews();
 
-        /* First Legislator */
+        getLegislatorObject().clearEmailSend();
 
-		if (legislativeIsParsed && getLegislatorObject().getLegislatorCount() > 0) {
+        for (int memberIndex = 0; memberIndex < getLegislatorObject().getLegislatorCount(); memberIndex++ ) {
+            final int finalMemberIndex = memberIndex;
 
-            nameButton1_1.setText(getLegislatorObject().getLegislator(0));
+            final CheckBox checkBox = new CheckBox(this);
+            checkBox.setMinHeight(55);
+
             if (mySQLAddress.getTEST().equals("true")) {
-                checkBox1_1.setEnabled(false);
-                checkBox1_1.setChecked(false);
-            } else {
-                checkBox1_1.setEnabled(true);
-                checkBox1_1.setChecked(false);
+                checkBox.setEnabled(false);
             }
-            checkBox1_1.setVisibility(View.VISIBLE);
-            nameButton1_1.setVisibility(View.VISIBLE);
-            webButton1_1.setVisibility(View.VISIBLE);
-            phoneButton1_1.setVisibility(View.VISIBLE);
 
-            webButton1_1.setOnClickListener(new OnClickListener() {
+            checkBox.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
 
-                    if (!getLegislatorObject().getWebsite(0).equals("null") && isOnline()) {
+                    if (checkBox.isChecked()) {
+                        getLegislatorObject().setEmailSend(finalMemberIndex, true);
+                    } else {
+                        getLegislatorObject().setEmailSend(finalMemberIndex, false);
+                    }
+                }
+            });
+
+            Button nameButton = new Button(this);
+            nameButton.setTextSize(14);
+            nameButton.setText(getLegislatorObject().getLegislator(finalMemberIndex));
+
+            ImageButton webButton = new ImageButton(this);
+            webButton.setMaxHeight(55);
+            webButton.setMaxWidth(55);
+            webButton.setImageResource(ic_dialog_info);
+
+            webButton.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+
+                    if (!getLegislatorObject().getWebsite(finalMemberIndex).equals("null") && isOnline()) {
                         Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-                        myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(0)));
+                        myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(finalMemberIndex)));
                         startActivity(myWebLink);
                     } else {
-                        Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(0), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(finalMemberIndex), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -387,15 +356,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
-            phoneButton1_2.setOnClickListener(new OnClickListener() {
+			ImageButton phoneButton = new ImageButton(this);
+            phoneButton.setMaxHeight(55);
+            phoneButton.setMaxWidth(55);
+            phoneButton.setImageResource(ic_dialog_dialer);
+
+            phoneButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
 
-                    if (!getLegislatorObject().getPhone(0).equals("null") && isOnline()) {
+                    if (!getLegislatorObject().getPhone(finalMemberIndex).equals("null") && isOnline()) {
                         Intent myPhoneLink = new Intent(Intent.ACTION_DIAL);
-                        myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(0)));
+                        myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(finalMemberIndex)));
                         startActivity(myPhoneLink);
                     } else {
-                        Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(0), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(finalMemberIndex), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -406,278 +380,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return netInfo != null && netInfo.isConnected();
                 }
             });
+
+            TableRow tr = new TableRow(this);
+
+            tr.addView(checkBox);
+            tr.addView(nameButton);
+            tr.addView(webButton);
+            tr.addView(phoneButton);
+
+            tl.addView(tr);
         }
-
-		/* Second Legislator */
-		if (legislativeIsParsed && getLegislatorObject().getLegislatorCount() > 1) {
-
-			nameButton1_2.setText(getLegislatorObject().getLegislator(1));
-			if (mySQLAddress.getTEST().equals("true")) {
-				checkBox1_2.setEnabled(false);
-				checkBox1_2.setChecked(false);
-			} else {
-				checkBox1_2.setEnabled(true);
-				checkBox1_2.setChecked(false);
-			}
-			checkBox1_2.setVisibility(View.VISIBLE);
-			nameButton1_2.setVisibility(View.VISIBLE);
-			webButton1_2.setVisibility(View.VISIBLE);
-			phoneButton1_2.setVisibility(View.VISIBLE);
-
-			webButton1_2.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-
-					if (!getLegislatorObject().getWebsite(1).equals("null") && isOnline()) {
-						Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-						myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(1)));
-						startActivity(myWebLink);
-					} else {
-						Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(1), Toast.LENGTH_SHORT).show();
-					}
-				}
-
-				private boolean isOnline() {
-
-					ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-					NetworkInfo netInfo = cm.getActiveNetworkInfo();
-					return netInfo != null && netInfo.isConnected();
-				}
-			});
-
-			phoneButton1_2.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-
-					if (!getLegislatorObject().getPhone(1).equals("null") && isOnline()) {
-						Intent myPhoneLink = new Intent(Intent.ACTION_DIAL);
-						myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(1)));
-						startActivity(myPhoneLink);
-					} else {
-						Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(1), Toast.LENGTH_SHORT).show();
-					}
-				}
-
-				private boolean isOnline() {
-
-					ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-					NetworkInfo netInfo = cm.getActiveNetworkInfo();
-					return netInfo != null && netInfo.isConnected();
-				}
-			});
-
-			/* Third Legislator */
-			if (getLegislatorObject().getLegislatorCount() > 2) {
-
-				nameButton1_3.setText(getLegislatorObject().getLegislator(2));
-				if (mySQLAddress.getTEST().equals("true")) {
-					checkBox1_3.setEnabled(false);
-					checkBox1_3.setChecked(false);
-				} else {
-					checkBox1_3.setEnabled(true);
-					checkBox1_3.setChecked(false);
-				}
-				checkBox1_3.setVisibility(View.VISIBLE);
-				nameButton1_3.setVisibility(View.VISIBLE);
-				webButton1_3.setVisibility(View.VISIBLE);
-				phoneButton1_3.setVisibility(View.VISIBLE);
-
-				webButton1_3.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getWebsite(2).equals("null") && isOnline()) {
-							Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-							myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(2)));
-							startActivity(myWebLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(2), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-
-				phoneButton1_3.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getPhone(2).equals("null") && isOnline()) {
-							Intent myPhoneLink = new Intent(Intent.ACTION_DIAL);
-							myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(2)));
-							startActivity(myPhoneLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(2), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-
-			}
-
-			/* Fourth Legislator */
-			if (getLegislatorObject().getLegislatorCount() > 3) {
-
-				nameButton1_4.setText(getLegislatorObject().getLegislator(3));
-				if (mySQLAddress.getTEST().equals("true")) {
-					checkBox1_4.setEnabled(false);
-					checkBox1_4.setChecked(false);
-				} else {
-					checkBox1_4.setEnabled(true);
-					checkBox1_4.setChecked(false);
-				}
-				checkBox1_4.setVisibility(View.VISIBLE);
-				nameButton1_4.setVisibility(View.VISIBLE);
-				webButton1_4.setVisibility(View.VISIBLE);
-				phoneButton1_4.setVisibility(View.VISIBLE);
-
-				webButton1_4.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getWebsite(3).equals("null") && isOnline()) {
-							Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-							myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(3)));
-							startActivity(myWebLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(3), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-
-				phoneButton1_4.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getPhone(3).equals("null") && isOnline()) {
-							Intent myPhoneLink = new Intent(Intent.ACTION_DIAL);
-							myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(3)));
-							startActivity(myPhoneLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(3), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-			}
-
-			/* Fifth Legislator */
-			if (getLegislatorObject().getLegislatorCount() > 4) {
-
-				nameButton1_5.setText(getLegislatorObject().getLegislator(4));
-				if (mySQLAddress.getTEST().equals("true")) {
-					checkBox1_5.setEnabled(false);
-					checkBox1_5.setChecked(false);
-					checkBox1_5.setChecked(false);
-				} else {
-					checkBox1_5.setEnabled(true);
-				}
-				checkBox1_5.setVisibility(View.VISIBLE);
-				nameButton1_5.setVisibility(View.VISIBLE);
-				webButton1_5.setVisibility(View.VISIBLE);
-				phoneButton1_5.setVisibility(View.VISIBLE);
-
-				webButton1_5.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getWebsite(4).equals("null") && isOnline()) {
-							Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
-							myWebLink.setData(Uri.parse(getLegislatorObject().getWebsite(4)));
-							startActivity(myWebLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_website) + getLegislatorObject().getLegislator(4), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-
-				phoneButton1_5.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-
-						if (!getLegislatorObject().getPhone(4).equals("null") && isOnline()) {
-							Intent myPhoneLink = new Intent(Intent.ACTION_DIAL);
-							myPhoneLink.setData(Uri.parse(getString(R.string.telphone_parse) + getLegislatorObject().getPhone(4)));
-							startActivity(myPhoneLink);
-						} else {
-							Toast.makeText(getApplicationContext(), getString(R.string.no_phone) + getLegislatorObject().getLegislator(4), Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					private boolean isOnline() {
-						ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = cm.getActiveNetworkInfo();
-						return netInfo != null && netInfo.isConnected();
-					}
-				});
-			}
-
-		} else {
-
-			/* If Zip Code is incorrect open the SettingsActivity Form */
-			Toast.makeText(getApplicationContext(), R.string.invalid_zip, Toast.LENGTH_LONG).show();
-
-			Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-			MainActivity.this.startActivityForResult(intent, 0);
-		}
-	}
-
-	private void setRepresentativeButtonDefaults() {
-
-		checkBox1_1.setEnabled(false);
-		checkBox1_1.setChecked(false);
-		nameButton1_1.setText(null);
-		webButton1_1.setOnClickListener(null);
-		phoneButton1_1.setOnClickListener(null);
-
-		checkBox1_2.setEnabled(false);
-		checkBox1_2.setChecked(false);
-		nameButton1_2.setText(null);
-		webButton1_2.setOnClickListener(null);
-		phoneButton1_2.setOnClickListener(null);
-
-		checkBox1_3.setEnabled(false);
-		checkBox1_3.setChecked(false);
-		nameButton1_3.setText(null);
-		webButton1_3.setOnClickListener(null);
-		phoneButton1_3.setOnClickListener(null);
-
-		checkBox1_4.setEnabled(false);
-		checkBox1_4.setChecked(false);
-		nameButton1_4.setText(null);
-		webButton1_4.setOnClickListener(null);
-		phoneButton1_4.setOnClickListener(null);
-
-		checkBox1_5.setEnabled(false);
-		checkBox1_5.setChecked(false);
-		nameButton1_5.setText(null);
-		webButton1_5.setOnClickListener(null);
-		phoneButton1_5.setOnClickListener(null);
-
-		// There may not be a fourth representative, so hide until populated
-		checkBox1_5.setVisibility(View.GONE);
-		nameButton1_5.setVisibility(View.GONE);
-		webButton1_5.setVisibility(View.GONE);
-		phoneButton1_5.setVisibility(View.GONE);
 	}
 
 	public void setNavigationViewAccount() {
@@ -727,48 +439,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		ArrayList<String> emailAddresses = new ArrayList<>();
 
-		if (legislativeIsParsed && getLegislatorObject().getLegislatorCount() > 0) {
+        if (legislativeIsParsed && getLegislatorObject().getLegislatorCount() > 0) {
+            for (int memberIndex = 0; memberIndex < getLegislatorObject().getLegislatorCount(); memberIndex++ ) {
 
-            if (checkBox1_1.isChecked()) {
-                if (!getLegislatorObject().getEmail(0).equals("null")) {
-                    emailAddresses.add(getLegislatorObject().getEmail(0));
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(0), Toast.LENGTH_SHORT).show();
+                if (getLegislatorObject().getEmailSend(memberIndex)) {
+                    if (!getLegislatorObject().getEmail(memberIndex).equals("null")) {
+                        emailAddresses.add(getLegislatorObject().getEmail(memberIndex));
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(memberIndex), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-
-			if (checkBox1_2.isChecked()) {
-				if (!getLegislatorObject().getEmail(1).equals("null")) {
-					emailAddresses.add(getLegislatorObject().getEmail(1));
-				} else {
-					Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(1), Toast.LENGTH_SHORT).show();
-				}
-			}
-
-			if (checkBox1_3.isChecked()) {
-				if (!getLegislatorObject().getEmail(2).equals("null")) {
-					emailAddresses.add(getLegislatorObject().getEmail(2));
-				} else {
-					Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(2), Toast.LENGTH_SHORT).show();
-				}
-			}
-
-			if (checkBox1_4.isChecked()) {
-				if (!getLegislatorObject().getEmail(3).equals("null")) {
-					emailAddresses.add(getLegislatorObject().getEmail(3));
-				} else {
-					Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(3), Toast.LENGTH_SHORT).show();
-				}
-			}
-
-			if (checkBox1_5.isChecked()) {
-				if (!getLegislatorObject().getEmail(4).equals("null")) {
-					emailAddresses.add(getLegislatorObject().getEmail(4));
-				} else {
-					Toast.makeText(getApplicationContext(), getString(R.string.email_address_not_available) + getLegislatorObject().getLegislator(4), Toast.LENGTH_SHORT).show();
-				}
-			}
-		}
+        }
 
         // Build address list or override for testing purposes.
 		// Overriding will send message to your own email address
@@ -827,10 +509,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public void mailStatusNotification() {
 
 		if (mailSent) {
-			checkBox1_1.setChecked(false);
-			checkBox1_2.setChecked(false);
-			checkBox1_3.setChecked(false);
-			checkBox1_4.setChecked(false);
+
+            setRepresentatives();
 
 			subjectText.setText("");
 			messageText.setText(this.getSignature());

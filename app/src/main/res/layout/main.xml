@@ -22,24 +22,30 @@
         android:layout_height="181dp"
         android:layout_width="match_parent"
         android:fadeScrollbars="false">
+
         <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:stretchColumns="1">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <CheckBox
                     android:id="@+id/checkBox1_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
+
                 <Button
                     android:id="@+id/nameButton1_1"
                     android:clickable="false"
                     android:hint="@string/representative" />
+
                 <ImageButton
                     android:id="@+id/webButton1_1"
                     android:adjustViewBounds="true"
@@ -47,6 +53,7 @@
                     android:maxWidth="55dp"
                     android:src="@android:drawable/ic_dialog_info"
                     tools:ignore="ContentDescription" />
+
                 <ImageButton
                     android:id="@+id/phoneButton1_1"
                     android:adjustViewBounds="true"
@@ -55,16 +62,20 @@
                     android:src="@android:drawable/ic_dialog_dialer"
                     tools:ignore="ContentDescription" />
             </TableRow>
+
             <TableRow>
+
                 <CheckBox
                     android:id="@+id/checkBox1_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
+
                 <Button
                     android:id="@+id/nameButton1_2"
                     android:clickable="false"
                     android:hint="@string/representative" />
+
                 <ImageButton
                     android:id="@+id/webButton1_2"
                     android:adjustViewBounds="true"
@@ -72,6 +83,7 @@
                     android:maxWidth="48dp"
                     android:src="@android:drawable/ic_dialog_info"
                     tools:ignore="ContentDescription" />
+
                 <ImageButton
                     android:id="@+id/phoneButton1_2"
                     android:adjustViewBounds="true"
@@ -80,16 +92,20 @@
                     android:src="@android:drawable/ic_dialog_dialer"
                     tools:ignore="ContentDescription" />
             </TableRow>
-            <TableRow android:layout_height="wrap_content" >
+
+            <TableRow android:layout_height="wrap_content">
+
                 <CheckBox
                     android:id="@+id/checkBox1_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
+
                 <Button
                     android:id="@+id/nameButton1_3"
                     android:clickable="false"
                     android:hint="@string/representative" />
+
                 <ImageButton
                     android:id="@+id/webButton1_3"
                     android:adjustViewBounds="true"
@@ -97,6 +113,7 @@
                     android:maxWidth="48dp"
                     android:src="@android:drawable/ic_dialog_info"
                     tools:ignore="ContentDescription" />
+
                 <ImageButton
                     android:id="@+id/phoneButton1_3"
                     android:adjustViewBounds="true"
@@ -105,18 +122,22 @@
                     android:src="@android:drawable/ic_dialog_dialer"
                     tools:ignore="ContentDescription" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <CheckBox
                     android:id="@+id/checkBox1_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
+
                 <Button
                     android:id="@+id/nameButton1_4"
                     android:clickable="false"
                     android:hint="@string/representative" />
+
                 <ImageButton
                     android:id="@+id/webButton1_4"
                     android:adjustViewBounds="true"
@@ -124,6 +145,7 @@
                     android:maxWidth="48dp"
                     android:src="@android:drawable/ic_dialog_info"
                     tools:ignore="ContentDescription" />
+
                 <ImageButton
                     android:id="@+id/phoneButton1_4"
                     android:adjustViewBounds="true"
@@ -132,18 +154,22 @@
                     android:src="@android:drawable/ic_dialog_dialer"
                     tools:ignore="ContentDescription" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <CheckBox
                     android:id="@+id/checkBox1_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
+
                 <Button
                     android:id="@+id/nameButton1_5"
                     android:clickable="false"
                     android:hint="@string/representative" />
+
                 <ImageButton
                     android:id="@+id/webButton1_5"
                     android:adjustViewBounds="true"
@@ -151,6 +177,7 @@
                     android:maxWidth="48dp"
                     android:src="@android:drawable/ic_dialog_info"
                     tools:ignore="ContentDescription" />
+
                 <ImageButton
                     android:id="@+id/phoneButton1_5"
                     android:adjustViewBounds="true"
