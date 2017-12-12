@@ -278,6 +278,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	public void setRepresentatives() {
 
+
+        if (getLegislatorObject().getLegislatorCount() == 0) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivityForResult(intent, 0);
+            Toast.makeText(getApplicationContext(), R.string.invalid_zip, Toast.LENGTH_LONG).show();
+            return;
+        }
+
 		if (legislativeParseError) {
 			Toast.makeText(getApplicationContext(), R.string.legislative_parse_error, Toast.LENGTH_LONG).show();
 			return;
