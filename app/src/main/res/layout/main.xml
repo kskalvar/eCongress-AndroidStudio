@@ -39,6 +39,8 @@
                     android:id="@+id/checkBox1_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:enabled="false"
                     android:minHeight="48dp" />
 
                 <Button
@@ -69,6 +71,7 @@
                     android:id="@+id/checkBox1_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:minHeight="48dp" />
 
                 <Button
@@ -99,6 +102,7 @@
                     android:id="@+id/checkBox1_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:minHeight="48dp" />
 
                 <Button
@@ -131,6 +135,7 @@
                     android:id="@+id/checkBox1_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:minHeight="48dp" />
 
                 <Button
