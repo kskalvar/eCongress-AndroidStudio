@@ -38,7 +38,7 @@
     <string name="no_subject_or_message">Subject Or Message Not Entered!</string>
     <string name="no_network">Warning: No Network Service!</string>
     <string name="no_legislative_service">Warning: Legislative Service Not Accessible!</string>
-    <string name="invalid_zip">Warning: Valid Zip Code Not Entered, Returned No Congressional Members!</string>
+    <string name="invalid_zip">Warning: Invalid Zip Code Not Entered, Returned No Congressional Members!</string>
     <string name="no_phone">"Phone Not Available: "</string>
     <string name="no_website">"Website Not Available: "</string>
     <string name="telphone_parse">tel:</string>
