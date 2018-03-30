@@ -10,6 +10,7 @@ import com.mycompany.app.econgress.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
@@ -35,7 +36,10 @@ public class VersionAsyncTask extends AsyncTask<String, Void, Void> {
 
         try {
             doc = Jsoup.connect(String.valueOf(playStoreUrl)).get();
-            storeVersion = doc.getElementsByAttributeValue("itemprop","softwareVersion").first().text();
+            Elements itemprop = doc.select("itemprop");
+            if (! itemprop.isEmpty()) {
+                storeVersion = doc.getElementsByAttributeValue("itemprop","softwareVersion").first().text();
+            }
         } catch (IOException e) {
             storeVersion = null;
             Log.i("VersionAsyncTask", e.getMessage());
