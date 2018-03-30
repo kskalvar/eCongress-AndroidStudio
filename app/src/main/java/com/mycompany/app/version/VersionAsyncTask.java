@@ -36,6 +36,8 @@ public class VersionAsyncTask extends AsyncTask<String, Void, Void> {
 
         try {
             doc = Jsoup.connect(String.valueOf(playStoreUrl)).get();
+
+            // Google dropped attribute itemprop from the app details.  Will need to find another way to replace it later.
             Elements itemprop = doc.select("itemprop");
             if (! itemprop.isEmpty()) {
                 storeVersion = doc.getElementsByAttributeValue("itemprop","softwareVersion").first().text();
