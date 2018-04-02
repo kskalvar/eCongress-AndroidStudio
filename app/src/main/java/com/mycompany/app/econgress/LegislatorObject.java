@@ -113,7 +113,7 @@ public class LegislatorObject {
 
 		for ( int iter = 0; iter < getLegislatorCount(); iter++) {
 			legislator = legislators.get(iter);
-			legislator.put("sendmail", "false");
+			legislator.put("sendMail", "false");
 			legislators.put(iter, legislator);
 		}
 	}
