@@ -221,6 +221,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (!this.isOnline()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
 		switch (item.getItemId()) {
 		case R.id.main_manage:
 			Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
