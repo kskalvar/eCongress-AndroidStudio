@@ -100,6 +100,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		});
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        new AndroidPermissionsAsyncTask(MainActivity.this).execute();
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
+
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
@@ -210,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-		// Handle navigation view item clicks here.
+ 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 		if (id == R.id.nav_clear) {
 
@@ -423,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			return;
 		}
 
+        new AndroidPermissionsAsyncTask(MainActivity.this).execute();
         new GoogleOauthAsyncTask(MainActivity.this).execute();
 
  		if (googleAcountNoPermissions) {
