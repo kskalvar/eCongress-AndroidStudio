@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.2"
-
     defaultConfig {
         applicationId "com.mycompany.app.econgress"
         minSdkVersion 17
@@ -32,14 +30,14 @@ android {
 }
 
 dependencies {
-    compile files('libs/activation.jar')
-    compile files('libs/additionnal.jar')
-    compile files('libs/mail.jar')
-    compile files('libs/jsoup-1.9.2.jar')
+    api files('libs/activation.jar')
+    api files('libs/additionnal.jar')
+    api files('libs/mail.jar')
+    api files('libs/jsoup-1.9.2.jar')
 
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:support-v4:25.4.0'
-    compile 'com.android.support:design:25.4.0'
+    api 'com.android.support:appcompat-v7:25.4.0'
+    api 'com.android.support:support-v4:25.4.0'
+    api 'com.android.support:design:25.4.0'
 
-    compile 'com.google.android.gms:play-services-auth:10.2.0'
+    api 'com.google.android.gms:play-services-auth:10.2.0'
 }
