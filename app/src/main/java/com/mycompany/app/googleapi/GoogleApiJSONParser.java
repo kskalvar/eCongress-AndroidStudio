@@ -95,9 +95,9 @@ class GoogleApiJSONParser {
                 String rank = office.getString("name");
 
                 if (rank.equals("President of the United States")) {
-                    rank = "US Pres";
+                    rank = "POTUS";
                 } else if (rank.equals("Vice-President of the United States")) {
-                    rank = "US Vice-Pres";
+                    continue;
                 } else if (rank.equals("United States Senate")) {
                     rank = "US Sen";
                 } else if (rank.contains("United States House of Representatives")) {
