@@ -1,5 +1,8 @@
 package com.mycompany.app.econgress;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 		setContentView(R.layout.settings_activity);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
 		if (getSupportActionBar() != null){
@@ -111,19 +115,24 @@ public class SettingsActivity extends AppCompatActivity {
 		myAddressDAO.saveAddress(mySQLAddress);
 	}
 
-	private void isZipCodeValid() {
+	private boolean isZipCodeValid() {
+
+	    boolean isValid = true;
 
 		if (edittext7.getText().toString().isEmpty()) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_not_entered, Toast.LENGTH_SHORT).show();
+			isValid = false;
 
 		} else if (edittext7.getText().toString().length() < 5 || edittext7.getText().toString().length() > 5) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_length, Toast.LENGTH_SHORT).show();
+            isValid = false;
 
 		} else if (!TextUtils.isDigitsOnly(edittext7.getText().toString())) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_numeric, Toast.LENGTH_SHORT).show();
+            isValid = false;
 		}
 
 		if (!edittext8.getText().toString().isEmpty()) {
@@ -131,23 +140,44 @@ public class SettingsActivity extends AppCompatActivity {
 			if (edittext8.getText().toString().length() < 4 || edittext8.getText().toString().length() > 4) {
 				edittext8.setText("");
 				Toast.makeText(getApplicationContext(), R.string.zip_4_length, Toast.LENGTH_SHORT).show();
+                isValid = false;
 
 			} else if (!TextUtils.isDigitsOnly(edittext8.getText().toString())) {
 				edittext8.setText("");
 				Toast.makeText(getApplicationContext(), R.string.zip_4_numeric, Toast.LENGTH_SHORT).show();
+                isValid = false;
 			}
 		}
+		return isValid;
 	}
+	public boolean isOnline() {
+
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo netInfo;
+		netInfo = cm.getActiveNetworkInfo();
+
+		return netInfo != null && netInfo.isConnected();
+	}
+
+    public void onBackPressed(){
+	    // capture backpress but nop
+
+    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 
-				this.isZipCodeValid();
-				this.saveAddress();
-				finish();
-
+                if (this.isZipCodeValid()) {
+                    if (this.isOnline()) {
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                this.saveAddress();
 				return true;
 
 			default:
