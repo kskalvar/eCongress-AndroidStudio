@@ -1,6 +1,7 @@
 package com.mycompany.app.googleapi;
 
 import android.util.Log;
+import android.util.SparseArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +17,10 @@ import java.util.HashMap;
 class GoogleApiJSONParser {
 
 	private HashMap<String, String> legislator = null;
-	private HashMap<Integer, HashMap<String, String>> legislators = new HashMap<>();
+
+	// private HashMap<Integer, HashMap<String, String>> legislators = new HashMap<>();
+    private SparseArray<HashMap<String, String>> legislators = new SparseArray<>();
+
 	private boolean networkError = false;
 	private boolean parseError = false;
 	private boolean invalidZip = false;
@@ -149,7 +153,7 @@ class GoogleApiJSONParser {
         }
     }
 
-	HashMap<Integer, HashMap<String, String>> getLegislators() {
+	SparseArray<HashMap<String, String>> getLegislators() {
 		return legislators;
 		
 	}

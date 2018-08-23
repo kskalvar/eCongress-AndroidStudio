@@ -2,6 +2,7 @@ package com.mycompany.app.googleapi;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.mycompany.app.econgress.LegislatorObject;
 import com.mycompany.app.econgress.MainActivity;
@@ -11,10 +12,10 @@ import com.mycompany.app.persistence.SQLite.SQLAddress;
 import java.util.HashMap;
 
 
-public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Integer, HashMap<String, String>>> {
+public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, SparseArray<HashMap<String, String>>> {
 
     private MainActivity econgressActivity;
-	private HashMap<Integer, HashMap<String, String>> legislators = null;
+	private SparseArray<HashMap<String, String>> legislators = null;
 
 	private boolean isParsed = false;
 	private boolean networkError = false;
@@ -26,14 +27,14 @@ public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Inte
 	}
 
 	@Override
-	protected HashMap<Integer, HashMap<String, String>> doInBackground(String... params) {
+	protected SparseArray<HashMap<String, String>> doInBackground(String... params) {
 
 		parse(params[0]);
 		return legislators;
 	}
 
 	@Override
-	protected void onPostExecute(HashMap<Integer, HashMap<String, String>> result) {
+	protected void onPostExecute(SparseArray<HashMap<String, String>> result) {
 		
 		super.onPostExecute(result);
 

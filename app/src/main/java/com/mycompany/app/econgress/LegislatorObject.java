@@ -1,11 +1,11 @@
 package com.mycompany.app.econgress;
 
+import android.util.SparseArray;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class LegislatorObject {
 
-	private HashMap<Integer, HashMap<String, String>> legislators = null;
+	private SparseArray<HashMap<String, String>> legislators = null;
 	private HashMap<String, String> legislator = null;
 
 	public LegislatorObject() {
@@ -124,17 +124,10 @@ public class LegislatorObject {
 	}
 
 	/**
-	 * @return the legislators
-	 */
-	public HashMap<Integer, HashMap<String, String>> getLegislators() {
-		return legislators;
-	}
-
-	/**
 	 * @param legislators
 	 *            the legislators to set
 	 */
-	public void setLegislators(HashMap<Integer, HashMap<String, String>> legislators) {
+	public void setLegislators(SparseArray<HashMap<String, String>> legislators) {
 		this.legislators = legislators;
 	}
 
