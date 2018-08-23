@@ -19,6 +19,7 @@ class GoogleApiJSONParser {
 	private HashMap<Integer, HashMap<String, String>> legislators = new HashMap<>();
 	private boolean networkError = false;
 	private boolean parseError = false;
+	private boolean invalidZip = false;
 	private String jsonObject = "no json";
 
 	GoogleApiJSONParser() {
@@ -44,13 +45,14 @@ class GoogleApiJSONParser {
 
         networkError = false;
         parseError = false;
+        invalidZip = false;
         String line;
 
 		try {
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-			if (con.getResponseCode() != 200) {
+			if (con.getResponseCode() == 404) {
 				Log.i("GoogleApiJSONParser", "HttpURLConnection " + con.getResponseCode());
 				networkError = true;
 				return;
@@ -68,7 +70,7 @@ class GoogleApiJSONParser {
 
 		} catch (IOException e) {
 			Log.i("GoogleApiJSONParser", "IOException " + e.getMessage());
-			networkError = true;
+            invalidZip = true;
 		} catch (JSONException e) {
 			Log.i("GoogleApiJSONParser", "JSONException " + e.getMessage());
 			parseError = true;
@@ -95,7 +97,7 @@ class GoogleApiJSONParser {
                 String rank = office.getString("name");
 
                 if (rank.equals("President of the United States")) {
-                    rank = "POTUS";
+                    rank = "President";
                 } else if (rank.equals("Vice-President of the United States")) {
                     continue;
                 } else if (rank.equals("United States Senate")) {
@@ -151,11 +153,8 @@ class GoogleApiJSONParser {
 		return legislators;
 		
 	}
-	boolean hasNetworkError() {
-		return networkError;
-	}
+	boolean hasNetworkError() { return networkError; }
 	boolean hasParseError() { return parseError; }
-	String getJsonObject() {
-        return jsonObject;
-    }
+	String getJsonObject() { return jsonObject; }
+    boolean hasInvalidZip() { return invalidZip; }
 }

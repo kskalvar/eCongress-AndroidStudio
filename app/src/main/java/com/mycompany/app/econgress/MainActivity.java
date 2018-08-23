@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public boolean legislativeNetworkError = false;
     public boolean legislativeIsParsed = false;
 	public boolean legislativeParseError = false;
+	public boolean legislativeInvalidZip = false;
     private static LegislatorObject legislatorObject = null;
 
     public String oauthToken = null;
@@ -80,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main_activity);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			}
 		});
 
-		swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+		swipeContainer = findViewById(R.id.swipeContainer);
 		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			}
 		});
 
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
                     @Override
@@ -128,11 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
-		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-        subjectText = (EditText) findViewById(R.id.subjectText);
-		messageText = (EditText) findViewById(R.id.messageText);
+        subjectText = findViewById(R.id.subjectText);
+		messageText = findViewById(R.id.messageText);
 	}
 
 	@Override
@@ -149,17 +150,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 				String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
 				if (subject != null) {
-					subjectText.setText(subject);
-				} else {
-					subjectText.setText("");
-				}
+                    subjectText.setText(subject);
+                } else {
+                    subjectText.setText("");
+                }
 
 				String url = intent.getStringExtra(Intent.EXTRA_TEXT);
 				if (url != null) {
-					messageText.setText("\n\n" + url + this.getSignature());
-				} else {
-					messageText.setText(this.getSignature());
-				}
+                    messageText.setText(String.format("\n\n %s %s", url, this.getSignature()));
+
+                } else {
+                    messageText.setText(this.getSignature());
+                }
 			}
 
 		} else {
@@ -175,15 +177,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			getRepresentatives();
 
 		} else {
-			getRepresentatives();
 			Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
+            AddressDAO myAddressDAO = AddressDAO.getInstance(getApplicationContext());
+            SQLAddress mySQLAddress = myAddressDAO.getAddress();
+            if (!mySQLAddress.getJSON().toLowerCase().equals("no json")) {
+                getRepresentatives();
+            }
 		}
 	}
 
 	@Override
-	protected void onResume() {
-        super.onResume();
-    }
+	protected void onResume() { super.onResume(); }
 
 	@Override
 	protected void onPause() {
@@ -243,13 +247,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		int id = item.getItemId();
 		if (id == R.id.nav_clear) {
 
-			setRepresentatives();
+            setRepresentativeTable();
 
 			subjectText.setText("");
 			messageText.setText(this.getSignature());
 		}
 
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 
 		return true;
@@ -258,8 +262,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public void fetchTimelineAsync() {
 
 		if (!this.isOnline()) {
-			Toast.makeText(getApplicationContext(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
-		} else {
+            Toast.makeText(getApplicationContext(), getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+        } else {
 
 			AddressDAO myAddressDAO = AddressDAO.getInstance(getApplicationContext());
 			SQLAddress mySQLAddress = myAddressDAO.getAddress();
@@ -299,31 +303,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
 		}
 
-        if (this.isOnline()) {
-            new AndroidPermissionsAsyncTask(MainActivity.this).execute();
-            new GoogleOauthAsyncTask(MainActivity.this).execute();
-        }
+        new AndroidPermissionsAsyncTask(MainActivity.this).execute();
+        new GoogleOauthAsyncTask(MainActivity.this).execute();
+
 	}
 
 	public void setRepresentatives() {
 
-
-        if (getLegislatorObject().getLegislatorCount() == 0) {
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            MainActivity.this.startActivityForResult(intent, 0);
-            Toast.makeText(getApplicationContext(), R.string.invalid_zip, Toast.LENGTH_LONG).show();
+        if (legislativeParseError) {
+            Toast.makeText(getApplicationContext(), R.string.legislative_parse_error, Toast.LENGTH_LONG).show();
             return;
         }
 
-		if (legislativeParseError) {
-			Toast.makeText(getApplicationContext(), R.string.legislative_parse_error, Toast.LENGTH_LONG).show();
-			return;
-		}
-
-		if (legislativeNetworkError) {
-			Toast.makeText(getApplicationContext(), R.string.no_legislative_service, Toast.LENGTH_LONG).show();
-			return;
-		}
+        if (legislativeNetworkError) {
+            Toast.makeText(getApplicationContext(), R.string.no_legislative_service, Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if (oauthJsonParseError) {
             Toast.makeText(getApplicationContext(), R.string.oauth_parse_error, Toast.LENGTH_LONG).show();
@@ -335,10 +330,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
 
+        if (legislativeInvalidZip && isOnline()) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivityForResult(intent, 0);
+            Toast.makeText(getApplicationContext(), R.string.invalid_zip, Toast.LENGTH_LONG).show();
+            return;
+        } else if (legislativeInvalidZip && !isOnline()) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivityForResult(intent, 0);
+            Toast.makeText(getApplicationContext(), "Warning: Unable to Contact Legislative Service to Validate Zip Code", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        setRepresentativeTable();
+
+    }
+
+     private void setRepresentativeTable() {
+
 		AddressDAO myAddressDAO = AddressDAO.getInstance(getApplicationContext());
 		SQLAddress mySQLAddress = myAddressDAO.getAddress();
 
-        TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout tl = findViewById(R.id.tableLayout);
         tl.removeAllViews();
 
         getLegislatorObject().clearEmailSend();
@@ -388,6 +401,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 private boolean isOnline() {
 
                     ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                    assert cm != null;
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
                     return netInfo != null && netInfo.isConnected();
                 }
@@ -413,7 +427,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 private boolean isOnline() {
 
                     ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                    assert cm != null;
+                    NetworkInfo netInfo;
+                    netInfo = cm.getActiveNetworkInfo();
                     return netInfo != null && netInfo.isConnected();
                 }
             });
@@ -431,18 +447,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	public void setNavigationViewAccount() {
 
-		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		NavigationView navigationView = findViewById(R.id.nav_view);
 		View header=navigationView.getHeaderView(0);
 
-		TextView email =(TextView)header.findViewById(R.id.textView);
+		TextView email = header.findViewById(R.id.textView);
 		if (googleAccount == null) {
-			email.setText(R.string.permissions_not_set);
-		} else {
-			email.setText(getString(R.string.account) + " " + googleAccount);
-		}
+            email.setText(R.string.permissions_not_set);
+        } else {
+            email.setText(String.format("%s %s", getString(R.string.account), googleAccount));
+        }
 
-        TextView textViewVersion = (TextView) header.findViewById(R.id.textViewVersion);
-        textViewVersion.setText(getString(R.string.econgress) + " v" + getString(R.string.version));
+        TextView textViewVersion = header.findViewById(R.id.textViewVersion);
+        textViewVersion.setText(String.format("%s v%s", getString(R.string.econgress), getString(R.string.version)));
 	}
 
 	private void sendMail() {
@@ -478,8 +494,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		ArrayList<String> emailAddresses = new ArrayList<>();
 
         if (legislativeIsParsed && getLegislatorObject().getLegislatorCount() > 0) {
-            for (int memberIndex = 0; memberIndex < getLegislatorObject().getLegislatorCount(); memberIndex++ ) {
-
+            for (int memberIndex = 0; memberIndex < getLegislatorObject().getLegislatorCount(); memberIndex++) {
                 if (getLegislatorObject().getEmailSend(memberIndex)) {
                     if (!getLegislatorObject().getEmail(memberIndex).equals("null")) {
                         emailAddresses.add(getLegislatorObject().getEmail(memberIndex));
@@ -501,12 +516,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		SQLAddress mySQLAddress = myAddressDAO.getAddress();
 
 		if (mySQLAddress.getTEST().equals("true")) {
-			emailAddress = googleAccount;
-		}
+            emailAddress = googleAccount;
+        }
 
 		if (emailAddress.isEmpty()) {
-			Toast.makeText(getApplicationContext(), R.string.no_email_address, Toast.LENGTH_SHORT).show();
-		} else {
+            Toast.makeText(getApplicationContext(), R.string.no_email_address, Toast.LENGTH_SHORT).show();
+        } else {
 			String subject = subjectText.getText().toString();
 			String message = messageText.getText().toString();
 			new MailAsyncTask(MainActivity.this).execute(emailAddress, googleAccount, subject, message, oauthToken);
@@ -524,10 +539,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		SQLAddress mySQLAddress = myAddressDAO.getAddress();
 
 		if (mySQLAddress.getTEST().toLowerCase().equals("true")) {
-			setTitle(getString(R.string.test_mode));
-		} else {
-			setTitle(getString(R.string.normal_mode));
-		}
+            setTitle(getString(R.string.test_mode));
+        } else {
+            setTitle(getString(R.string.normal_mode));
+        }
 	}
 
 	private String getSignature() {
@@ -538,10 +553,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		String mySignature = mySQLAddress.getSignature();
 
 		if (mySignature.isEmpty()) {
-			return mySignature;
-		} else {
-			return "\n\n" + mySignature;
-		}
+            return mySignature;
+        } else {
+            return "\n\n" + mySignature;
+        }
 	}
 
 	public void mailStatusNotification() {
@@ -554,8 +569,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			messageText.setText(this.getSignature());
 
 		} else {
-			Toast.makeText(getApplicationContext(), getString(R.string.email_failed) + this.mailMessage, Toast.LENGTH_LONG).show();
-		}
+            Toast.makeText(getApplicationContext(), getString(R.string.email_failed) + this.mailMessage, Toast.LENGTH_LONG).show();
+        }
 	}
 
 	public static LegislatorObject getLegislatorObject() {
@@ -569,10 +584,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	public boolean isOnline() {
 
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        assert cm != null;
+        NetworkInfo netInfo;
+        netInfo = cm.getActiveNetworkInfo();
 
-		return netInfo != null && netInfo.isConnected();
+        return netInfo != null && netInfo.isConnected();
 	}
-
-
 }

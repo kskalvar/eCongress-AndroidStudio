@@ -13,12 +13,13 @@ import java.util.HashMap;
 
 public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Integer, HashMap<String, String>>> {
 
-	private MainActivity econgressActivity = null;
+    private MainActivity econgressActivity;
 	private HashMap<Integer, HashMap<String, String>> legislators = null;
 
 	private boolean isParsed = false;
 	private boolean networkError = false;
     private boolean parseError = false;
+    private boolean invalidZip = false;
 
 	public GoogleApiJSONAsyncTask(MainActivity econgressActivity) {
 		this.econgressActivity = econgressActivity;
@@ -43,6 +44,7 @@ public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Inte
 		econgressActivity.legislativeIsParsed = this.isParsed;
 		econgressActivity.legislativeNetworkError = this.networkError;
         econgressActivity.legislativeParseError = this.parseError;
+        econgressActivity.legislativeInvalidZip = this.invalidZip;
 
 		econgressActivity.setRepresentatives();
 	}
@@ -53,6 +55,7 @@ public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Inte
         isParsed = false;
         networkError = false;
         parseError = false;
+        invalidZip = false;
 
         String savedJson;
         String parsedJson;
@@ -76,6 +79,7 @@ public class GoogleApiJSONAsyncTask extends AsyncTask<String, Void, HashMap<Inte
         networkError = jParser.hasNetworkError();
         parseError = jParser.hasParseError();
         parsedJson = jParser.getJsonObject();
+        invalidZip = jParser.hasInvalidZip();
 
         mySQLAddress.setJSON(parsedJson);
         myAddressDAO.saveAddress(mySQLAddress);
