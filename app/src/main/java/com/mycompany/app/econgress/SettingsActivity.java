@@ -34,8 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.settings_activity);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Toolbar toolbar = findViewById(R.id.toolbar);
+		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
 		if (getSupportActionBar() != null){
@@ -50,37 +49,37 @@ public class SettingsActivity extends AppCompatActivity {
 		myAddressDAO = AddressDAO.getInstance(this.getApplicationContext());
 		mySQLAddress = myAddressDAO.getAddress();
 
-		edittext10 = (EditText) findViewById(R.id.editText10);
+		edittext10 = findViewById(R.id.editText10);
 		edittext10.setText(mySQLAddress.getPREFIX());
 
-		edittext3 = (EditText) findViewById(R.id.editText3);
+		edittext3 = findViewById(R.id.editText3);
 		edittext3.setText(mySQLAddress.getFIRSTNAME());
 
-		edittext5 = (EditText) findViewById(R.id.editText5);
+		edittext5 = findViewById(R.id.editText5);
 		edittext5.setText(mySQLAddress.getMI());
 
-		edittext4 = (EditText) findViewById(R.id.editText4);
+		edittext4 = findViewById(R.id.editText4);
 		edittext4.setText(mySQLAddress.getLASTNAME());
 
-		edittext6 = (EditText) findViewById(R.id.editText6);
+		edittext6 = findViewById(R.id.editText6);
 		edittext6.setText(mySQLAddress.getADDRESS1());
 
-		edittext9 = (EditText) findViewById(R.id.editText9);
+		edittext9 = findViewById(R.id.editText9);
 		edittext9.setText(mySQLAddress.getADDRESS2());
 
-		edittext7 = (EditText) findViewById(R.id.editText7);
+		edittext7 = findViewById(R.id.editText7);
 		edittext7.setText(mySQLAddress.getZIP());
 
-		edittext8 = (EditText) findViewById(R.id.editText8);
+		edittext8 = findViewById(R.id.editText8);
 		edittext8.setText(mySQLAddress.getPLUS4());
 
-		edittext11 = (EditText) findViewById(R.id.editText11);
+		edittext11 = findViewById(R.id.editText11);
 		edittext11.setText(mySQLAddress.getSTATE());
 
-		edittext1 = (EditText) findViewById(R.id.editText1);
+		edittext1 = findViewById(R.id.editText1);
 		edittext1.setText(mySQLAddress.getTELEPHONE());
 
-		checkbox1 = (CheckBox) findViewById(R.id.checkBox1);
+		checkbox1 = findViewById(R.id.checkBox1);
 		if (mySQLAddress.getTEST().equals("true")) {
 			checkbox1.setChecked(true);
 		}
@@ -148,12 +147,13 @@ public class SettingsActivity extends AppCompatActivity {
                 isValid = false;
 			}
 		}
+
 		return isValid;
 	}
 	public boolean isOnline() {
 
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
+		assert cm != null;
 		NetworkInfo netInfo;
 		netInfo = cm.getActiveNetworkInfo();
 
