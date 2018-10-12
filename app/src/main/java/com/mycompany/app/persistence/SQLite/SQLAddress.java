@@ -148,5 +148,14 @@ public class SQLAddress {
 		
 	}
 
-	
+    public String getAddressUrl() {
+
+	    String addressUrl = null;
+
+	    addressUrl = getADDRESS1() + " " + getADDRESS2() + " " + getSTATE() + " " + getZIP() + "-" + getPLUS4();
+	    addressUrl = addressUrl.replaceAll(" ", "+").toLowerCase();
+
+	    return addressUrl;
+
+    }
 }
