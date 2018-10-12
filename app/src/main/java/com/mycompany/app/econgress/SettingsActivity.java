@@ -17,17 +17,17 @@ import com.mycompany.app.persistence.SQLite.SQLAddress;
 
 public class SettingsActivity extends AppCompatActivity {
 
-	private EditText edittext1; // Telephone
-	private EditText edittext3; // Firstname
-	private EditText edittext4; // Lastname
-	private EditText edittext5; // MI
-	private EditText edittext6; // Address 1
-	private EditText edittext7; // Zip
-	private EditText edittext8; // Zip+4
-	private EditText edittext9; // Address 2
+	private EditText edittext1;  // Telephone
+	private EditText edittext3;  // Firstname
+	private EditText edittext4;  // Lastname
+	private EditText edittext5;  // MI
+	private EditText edittext6;  // Address 1
+	private EditText edittext7;  // Zip
+	private EditText edittext8;  // Zip+4
+	private EditText edittext9;  // City
 	private EditText edittext10; // Title - Mr/Mrs/Miss
 	private EditText edittext11; // State
-	private CheckBox checkbox1; // Test Checkbox
+	private CheckBox checkbox1;  // Test Checkbox
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,35 +118,43 @@ public class SettingsActivity extends AppCompatActivity {
 
 	    boolean isValid = true;
 
-		if (edittext7.getText().toString().isEmpty()) {
+	    if (edittext6.getText().toString().isEmpty()) {
+			edittext6.setText("");
+			Toast.makeText(getApplicationContext(), R.string.street_not_entered, Toast.LENGTH_SHORT).show();
+			isValid = false;
+		} else if (edittext9.getText().toString().isEmpty()) {
+            edittext9.setText("");
+            Toast.makeText(getApplicationContext(), R.string.city_not_entered, Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (edittext11.getText().toString().isEmpty()) {
+            edittext11.setText("");
+            Toast.makeText(getApplicationContext(), R.string.state_not_entered, Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (edittext7.getText().toString().isEmpty()) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_not_entered, Toast.LENGTH_SHORT).show();
 			isValid = false;
-
 		} else if (edittext7.getText().toString().length() < 5 || edittext7.getText().toString().length() > 5) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_length, Toast.LENGTH_SHORT).show();
             isValid = false;
-
 		} else if (!TextUtils.isDigitsOnly(edittext7.getText().toString())) {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_numeric, Toast.LENGTH_SHORT).show();
             isValid = false;
-		}
-
-		if (!edittext8.getText().toString().isEmpty()) {
-
-			if (edittext8.getText().toString().length() < 4 || edittext8.getText().toString().length() > 4) {
-				edittext8.setText("");
-				Toast.makeText(getApplicationContext(), R.string.zip_4_length, Toast.LENGTH_SHORT).show();
-                isValid = false;
-
-			} else if (!TextUtils.isDigitsOnly(edittext8.getText().toString())) {
-				edittext8.setText("");
-				Toast.makeText(getApplicationContext(), R.string.zip_4_numeric, Toast.LENGTH_SHORT).show();
-                isValid = false;
-			}
-		}
+		} else if (edittext8.getText().toString().isEmpty()) {
+            edittext8.setText("");
+            Toast.makeText(getApplicationContext(), R.string.no_zip4_entered, Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (edittext8.getText().toString().length() < 4 || edittext8.getText().toString().length() > 4) {
+			edittext8.setText("");
+			Toast.makeText(getApplicationContext(), R.string.zip_4_length, Toast.LENGTH_SHORT).show();
+            isValid = false;
+	    } else if (!TextUtils.isDigitsOnly(edittext8.getText().toString())) {
+			edittext8.setText("");
+			Toast.makeText(getApplicationContext(), R.string.zip_4_numeric, Toast.LENGTH_SHORT).show();
+            isValid = false;
+	    }
 
 		return isValid;
 	}

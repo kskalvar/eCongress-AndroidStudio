@@ -42,6 +42,7 @@
         android:hint="@string/city"
         android:inputType="textCapWords"
         android:lines="1"
+        android:textColorHint="@color/Red"
         android:width="280sp"
         android:background="@drawable/text_box" />
 
@@ -54,6 +55,7 @@
         android:hint="@string/address"
         android:inputType="textCapWords|textPostalAddress"
         android:lines="1"
+        android:textColorHint="@color/Red"
         android:width="280sp"
         android:background="@drawable/text_box"/>
 
@@ -82,6 +84,7 @@
         android:hint="@string/zip4"
         android:inputType="number"
         android:lines="1"
+        android:textColorHint="@color/Red"
         android:width="75sp"
         android:background="@drawable/text_box"/>
 
@@ -110,14 +113,15 @@
         android:id="@+id/editText11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editText9"
+        android:layout_toStartOf="@+id/editText7"
+        android:width="65sp"
+        android:background="@drawable/text_box"
         android:ems="10"
         android:hint="@string/state"
         android:inputType="textCapCharacters"
-        android:lines="1"
-        android:width="65sp"
-        android:layout_below="@+id/editText9"
-        android:layout_toStartOf="@+id/editText7"
-        android:background="@drawable/text_box"/>
+        android:textColorHint="@color/Red"
+        android:lines="1" />
 
     <EditText
         android:id="@+id/editText3"

@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mySQLAddress.setJSON("no json");
             myAddressDAO.saveAddress(mySQLAddress);
 
-			new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
+            new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getAddressUrl() + key);
 			new GoogleOauthAsyncTask(MainActivity.this).execute();
 		}
 		swipeContainer.setRefreshing(false);
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			String command = sharedPref.getString(getString(R.string.command), null);
 			String key = sharedPref.getString(getString(R.string.key), null);
 
-			new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getZIP() + key);
+            new GoogleApiJSONAsyncTask(MainActivity.this).execute(url + command + mySQLAddress.getAddressUrl() + key);
 		}
 
         new AndroidPermissionsAsyncTask(MainActivity.this).execute();
@@ -343,7 +343,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         setRepresentativeTable();
-
     }
 
      private void setRepresentativeTable() {
