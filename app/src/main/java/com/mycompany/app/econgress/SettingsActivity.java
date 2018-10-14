@@ -142,18 +142,17 @@ public class SettingsActivity extends AppCompatActivity {
 			edittext7.setText("");
 			Toast.makeText(getApplicationContext(), R.string.zip_numeric, Toast.LENGTH_SHORT).show();
             isValid = false;
-		} else if (edittext8.getText().toString().isEmpty()) {
-            edittext8.setText("");
-            Toast.makeText(getApplicationContext(), R.string.no_zip4_entered, Toast.LENGTH_SHORT).show();
-            isValid = false;
-        } else if (edittext8.getText().toString().length() < 4 || edittext8.getText().toString().length() > 4) {
-			edittext8.setText("");
-			Toast.makeText(getApplicationContext(), R.string.zip_4_length, Toast.LENGTH_SHORT).show();
-            isValid = false;
-	    } else if (!TextUtils.isDigitsOnly(edittext8.getText().toString())) {
-			edittext8.setText("");
-			Toast.makeText(getApplicationContext(), R.string.zip_4_numeric, Toast.LENGTH_SHORT).show();
-            isValid = false;
+		} else if (! edittext8.getText().toString().isEmpty()) {
+
+	    	if (edittext8.getText().toString().length() < 4 || edittext8.getText().toString().length() > 4) {
+			   edittext8.setText("");
+			   Toast.makeText(getApplicationContext(), R.string.zip_4_length, Toast.LENGTH_SHORT).show();
+               isValid = false;
+	        } else if (!TextUtils.isDigitsOnly(edittext8.getText().toString())) {
+               edittext8.setText("");
+               Toast.makeText(getApplicationContext(), R.string.zip_4_numeric, Toast.LENGTH_SHORT).show();
+               isValid = false;
+            }
 	    }
 
 		return isValid;

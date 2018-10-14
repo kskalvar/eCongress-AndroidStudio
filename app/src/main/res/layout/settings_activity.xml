@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="fill_parent">
 
     <include layout="@layout/settings_app_bar"
@@ -17,7 +17,8 @@
         android:inputType="textCapWords"
         android:lines="1"
         android:width="45sp"
-        android:background="@drawable/text_box">
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o">
     </EditText>
 
     <EditText
@@ -31,7 +32,8 @@
         android:inputType="textCapWords|textPersonName"
         android:lines="1"
         android:width="115sp"
-        android:background="@drawable/text_box" />
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText9"
@@ -44,7 +46,8 @@
         android:lines="1"
         android:textColorHint="@color/Red"
         android:width="280sp"
-        android:background="@drawable/text_box" />
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText6"
@@ -57,7 +60,8 @@
         android:lines="1"
         android:textColorHint="@color/Red"
         android:width="280sp"
-        android:background="@drawable/text_box"/>
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText7"
@@ -71,7 +75,8 @@
         android:lines="1"
         android:textColorHint="@color/Red"
         android:width="95sp"
-        android:background="@drawable/text_box"/>
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText8"
@@ -84,9 +89,9 @@
         android:hint="@string/zip4"
         android:inputType="number"
         android:lines="1"
-        android:textColorHint="@color/Red"
         android:width="75sp"
-        android:background="@drawable/text_box"/>
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText1"
@@ -99,7 +104,8 @@
         android:inputType="phone"
         android:lines="1"
         android:width="180sp"
-        android:background="@drawable/text_box" />
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <CheckBox
         android:id="@+id/checkBox1"
@@ -121,7 +127,8 @@
         android:hint="@string/state"
         android:inputType="textCapCharacters"
         android:textColorHint="@color/Red"
-        android:lines="1" />
+        android:lines="1"
+        android:autofillHints="" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText3"
@@ -133,7 +140,8 @@
         android:width="115sp"
         android:layout_below="@+id/editText10"
         android:layout_alignStart="@+id/editText6"
-        android:background="@drawable/text_box" />
+        android:background="@drawable/text_box"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
     <EditText
         android:id="@+id/editText10"
@@ -146,6 +154,7 @@
         android:background="@drawable/text_box"
         android:layout_marginTop="111dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editText6" />
+        android:layout_alignStart="@+id/editText6"
+        android:importantForAutofill="no" tools:targetApi="o"/>
 
 </RelativeLayout>
