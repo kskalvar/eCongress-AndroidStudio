@@ -122,9 +122,13 @@ class GoogleApiJSONParser {
                     legislator.put("chamber", rank);
                     legislator.put("last_name", member.getString("name"));
 
-                    JSONArray urls = member.getJSONArray("urls");
-                    s = urls.getString(0);
-                    legislator.put("website", s);
+                    if (member.isNull("urls")) {
+                        legislator.put("website", "null");
+                    } else {
+                        JSONArray urls = member.getJSONArray("urls");
+                        s = urls.getString(0);
+                        legislator.put("website", s);
+                    }
 
                     s = member.getString("party");
                     if ( s.equals("Democratic")) {
