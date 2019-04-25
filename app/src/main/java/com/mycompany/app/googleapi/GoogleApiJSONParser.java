@@ -131,7 +131,7 @@ class GoogleApiJSONParser {
                     }
 
                     s = member.getString("party");
-                    if ( s.equals("Democratic")) {
+                    if ( s.contains("Democratic")) {
                         s = "(D)";
                     } else {
                         s = "(R)";
