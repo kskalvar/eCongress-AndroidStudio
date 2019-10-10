@@ -102,7 +102,7 @@ class GoogleApiJSONParser {
 
                 if (rank.equals("President of the United States")) {
                     rank = "President";
-                } else if (rank.equals("Vice-President of the United States")) {
+                } else if (rank.equals("Vice President of the United States")) {
                     continue;
                 } else if (rank.equals("United States Senate")) {
                     rank = "US Sen";
