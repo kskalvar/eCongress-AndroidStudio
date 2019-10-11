@@ -122,12 +122,12 @@ class GoogleApiJSONParser {
                     legislator.put("chamber", rank);
                     legislator.put("last_name", member.getString("name"));
 
-                    if (member.isNull("urls")) {
+                    if (member.isNull("channels")) {
                         legislator.put("website", "null");
                     } else {
-                        JSONArray urls = member.getJSONArray("urls");
-                        s = urls.getString(0);
-                        legislator.put("website", s);
+                        JSONArray urls = member.getJSONArray("channels");
+                        JSONObject twitter = urls.getJSONObject(1);
+                        legislator.put("website", "http://twitter.com/" + twitter.get("id"));
                     }
 
                     s = member.getString("party");
