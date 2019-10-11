@@ -122,6 +122,7 @@ class GoogleApiJSONParser {
                     legislator.put("chamber", rank);
                     legislator.put("last_name", member.getString("name"));
 
+                    // Google changed their structure, yeah no notice!
                     if (member.isNull("channels")) {
                         legislator.put("website", "null");
                     } else {
