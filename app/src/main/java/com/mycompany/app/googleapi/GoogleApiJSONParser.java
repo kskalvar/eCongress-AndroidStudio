@@ -128,7 +128,15 @@ class GoogleApiJSONParser {
                     } else {
                         JSONArray urls = member.getJSONArray("channels");
                         JSONObject twitter = urls.getJSONObject(1);
-                        legislator.put("website", "http://twitter.com/" + twitter.get("id"));
+
+                        if (twitter.get("id").toString().isEmpty()) {
+                            legislator.put("website", "null");
+                        } else {
+                            legislator.put("website", "http://twitter.com/" + twitter.getString("id"));
+                            if (twitter.getString("id").equalsIgnoreCase("SenKaineOffice")) {
+                                legislator.put("website", "http://twitter.com/" + "TimKaine");
+                            }
+                        }
                     }
 
                     s = member.getString("party");
