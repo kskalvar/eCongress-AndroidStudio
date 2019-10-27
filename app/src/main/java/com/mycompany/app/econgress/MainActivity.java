@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ImageButton webButton = new ImageButton(this);
             webButton.setMaxHeight(55);
             webButton.setMaxWidth(55);
-            webButton.setImageResource(ic_dialog_info);
+			webButton.setImageResource(R.drawable.twitter_logo_blue_32x32);
 
             webButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			ImageButton phoneButton = new ImageButton(this);
             phoneButton.setMaxHeight(55);
             phoneButton.setMaxWidth(55);
-            phoneButton.setImageResource(ic_dialog_dialer);
+			phoneButton.setImageResource(R.drawable.phone_logo_red_32x32);
 
             phoneButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {

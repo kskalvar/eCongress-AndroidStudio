@@ -50,17 +50,17 @@
                 <ImageButton
                     android:id="@+id/webButton1_1"
                     android:adjustViewBounds="true"
-                    android:maxHeight="55dp"
                     android:maxWidth="55dp"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:maxHeight="55dp"
+                    android:src="@drawable/twitter_logo_blue_32x32"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
                     android:id="@+id/phoneButton1_1"
                     android:adjustViewBounds="true"
-                    android:maxHeight="55dp"
                     android:maxWidth="55dp"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:maxHeight="55dp"
+                    android:src="@drawable/phone_logo_red_32x32"
                     tools:ignore="ContentDescription" />
             </TableRow>
 
@@ -81,17 +81,17 @@
                 <ImageButton
                     android:id="@+id/webButton1_2"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/twitter_logo_blue_32x32"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
                     android:id="@+id/phoneButton1_2"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/phone_logo_red_32x32"
                     tools:ignore="ContentDescription" />
             </TableRow>
 
@@ -112,17 +112,17 @@
                 <ImageButton
                     android:id="@+id/webButton1_3"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/twitter_logo_blue_32x32"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
                     android:id="@+id/phoneButton1_3"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/phone_logo_red_32x32"
                     tools:ignore="ContentDescription" />
             </TableRow>
 
@@ -145,17 +145,17 @@
                 <ImageButton
                     android:id="@+id/webButton1_4"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/twitter_logo_blue_32x32"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
                     android:id="@+id/phoneButton1_4"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/phone_logo_red_32x32"
                     tools:ignore="ContentDescription" />
             </TableRow>
 
@@ -177,17 +177,17 @@
                 <ImageButton
                     android:id="@+id/webButton1_5"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/twitter_logo_blue_32x32"
                     tools:ignore="ContentDescription" />
 
                 <ImageButton
                     android:id="@+id/phoneButton1_5"
                     android:adjustViewBounds="true"
-                    android:maxHeight="48dp"
                     android:maxWidth="48dp"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:maxHeight="48dp"
+                    android:src="@drawable/phone_logo_red_32x32"
                     tools:ignore="ContentDescription" />
             </TableRow>
         </TableLayout>
