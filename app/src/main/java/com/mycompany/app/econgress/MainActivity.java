@@ -3,6 +3,7 @@ package com.mycompany.app.econgress;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -383,7 +384,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ImageButton webButton = new ImageButton(this);
             webButton.setMaxHeight(55);
             webButton.setMaxWidth(55);
-			webButton.setImageResource(R.drawable.twitter_logo_blue_32x32);
+            webButton.setBackgroundColor(Color.WHITE);
+			webButton.setImageResource(R.drawable.twitter_logo_high_res2_32x32);
 
             webButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -409,7 +411,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 			ImageButton phoneButton = new ImageButton(this);
             phoneButton.setMaxHeight(55);
             phoneButton.setMaxWidth(55);
-			phoneButton.setImageResource(R.drawable.phone_logo_red_32x32);
+			phoneButton.setBackgroundColor(Color.WHITE);
+			phoneButton.setImageResource(R.drawable.phone_logo_high_res2_32x32);
 
             phoneButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
