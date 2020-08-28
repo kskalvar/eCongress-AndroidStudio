@@ -13,7 +13,7 @@
     tools:context="com.mycompany.app.econgress.MainActivity"
     tools:showIn="@layout/main_app_bar">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="197dp">
@@ -201,7 +201,7 @@
         </TableLayout>
     </ScrollView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <EditText
         android:importantForAutofill="no"
