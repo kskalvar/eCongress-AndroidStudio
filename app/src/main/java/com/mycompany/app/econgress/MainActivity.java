@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 		TextView email = header.findViewById(R.id.textView);
 		if (googleAccount == null) {
-            email.setText(R.string.permissions_not_set);
+            email.setText(String.format("%s", getString(R.string.no_email_account)));
         } else {
             email.setText(String.format("%s %s", getString(R.string.account), googleAccount));
         }
