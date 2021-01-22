@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 class GoogleApiJSONParser {
 
@@ -93,7 +95,8 @@ class GoogleApiJSONParser {
             int legislatorCount = 0;
             for (int i = 0; i < officesLength; i++) {
 
-                String s;
+                String party;
+                String phone;
 
                 JSONObject office = offices.getJSONObject(i);
                 JSONArray officesOfficialIndices = office.getJSONArray("officialIndices");
@@ -126,33 +129,41 @@ class GoogleApiJSONParser {
                     if (member.isNull("channels")) {
                         legislator.put("website", "null");
                     } else {
-                        JSONArray urls = member.getJSONArray("channels");
-                        JSONObject twitter = urls.getJSONObject(1);
 
-                        if (twitter.get("id").toString().isEmpty()) {
+                        JSONArray channels = member.getJSONArray("channels");
+                        String twitter = "";
+
+                        for (int ii = 0; ii < channels.length(); ii++) {
+                            JSONObject obj = channels.getJSONObject(ii);
+                            if (obj.getString("type").equalsIgnoreCase("twitter")) {
+                                twitter = obj.getString("id");
+                            }
+                        }
+
+                        if (twitter.isEmpty()) {
                             legislator.put("website", "null");
                         } else {
-                            legislator.put("website", "http://twitter.com/" + twitter.getString("id"));
-                            if (twitter.getString("id").equalsIgnoreCase("SenKaineOffice")) {
+                            legislator.put("website", "http://twitter.com/" + twitter);
+                            if (twitter.equalsIgnoreCase("SenKaineOffice")) {
                                 legislator.put("website", "http://twitter.com/" + "TimKaine");
                             }
                         }
                     }
 
-                    s = member.getString("party");
-                    if ( s.contains("Democratic")) {
-                        s = "(D)";
+                    party = member.getString("party");
+                    if ( party.contains("Democratic")) {
+                        party = "(D)";
                     } else {
-                        s = "(R)";
+                        party = "(R)";
                     }
-                    legislator.put("party", s);
+                    legislator.put("party", party);
 
                     legislator.put("oc_email", "null");
                     legislator.put("sendMail", "false");
 
                     JSONArray phones = member.getJSONArray("phones");
-                    s = phones.getString(0);
-                    legislator.put("phone", s);
+                    phone = phones.getString(0);
+                    legislator.put("phone", phone);
 
                     legislators.put(legislatorCount, legislator);
                     legislatorCount = legislatorCount + 1;
