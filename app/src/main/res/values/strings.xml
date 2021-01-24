@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">28002</string>
+    <string name="version">28003</string>
     <string name="storeversion_url">https://play.google.com/store/apps/details?id=</string>
     <string name="app_name">eCongress</string>
     <string name="app_desc">Connect directly to your Elected Officials in Congress using eCongress!</string>
