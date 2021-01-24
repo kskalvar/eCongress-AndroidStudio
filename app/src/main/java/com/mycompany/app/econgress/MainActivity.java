@@ -146,7 +146,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		if (Intent.ACTION_SEND.equals(action) && type != null) {
 			if ("text/plain".equals(type)) {
 
-				String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+				/*
+				 The EXTRA_SUBJECT no longer returns subject so just filled it with EXTRA_TEXT
+				 String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+				*/
+				String subject = intent.getStringExtra(Intent.EXTRA_TEXT);
+
 				if (subject != null) {
                     subjectText.setText(subject);
                 } else {
