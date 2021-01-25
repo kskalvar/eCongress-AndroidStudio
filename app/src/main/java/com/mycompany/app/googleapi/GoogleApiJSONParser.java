@@ -58,11 +58,18 @@ class GoogleApiJSONParser {
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
+			int getResponseCode = con.getResponseCode();
 			if (con.getResponseCode() == 404) {
 				Log.i("GoogleApiJSONParser", "HttpURLConnection " + con.getResponseCode());
 				networkError = true;
 				return;
 			}
+            if (con.getResponseCode() == 403) {
+                Log.i("GoogleApiJSONParser", "HttpURLConnection " + con.getResponseCode());
+                networkError = true;
+                return;
+            }
+
 
             StringBuilder sb = new StringBuilder();
             BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
