@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    namespace 'com.mycompany.app.econgress'
+    compileSdkVersion 36
     defaultConfig {
         applicationId "com.mycompany.app.econgress"
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 33
     }
 
     buildTypes {
@@ -16,30 +17,31 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/notice.txt'
+        resources {
+            excludes += '/META-INF/DEPENDENCIES.txt'
+            excludes += '/META-INF/DEPENDENCIES'
+            excludes += '/META-INF/dependencies.txt'
+            excludes += '/META-INF/LICENSE.txt'
+            excludes += '/META-INF/LICENSE'
+            excludes += '/META-INF/license.txt'
+            excludes += '/META-INF/LGPL2.1'
+            excludes += '/META-INF/NOTICE.txt'
+            excludes += '/META-INF/NOTICE'
+            excludes += '/META-INF/notice.txt'
+        }
     }
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildToolsVersion = '29.0.2'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.13.0'
 
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:21.5.0'
 }
